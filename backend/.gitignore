@@ -1,0 +1,10 @@
+# Ignore Python virtual environment
+venv/
+
+# Bytecode files
+__pycache__/
+*.pyc
+
+# Image dataset (optional)
+data/train/
+uploads/
