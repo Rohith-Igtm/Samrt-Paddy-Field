@@ -1,0 +1,14 @@
+# Virtual environment
+venv/
+
+# Ignore requirement.txt if needed
+requirements.txt
+
+# Python junk
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# VS Code stuff
+.vscode/
