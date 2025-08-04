@@ -1,25 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Smart Paddy Field</title>
-  <style>
-    body { font-family: Arial; text-align: center; padding: 50px; }
-    button { margin-top: 20px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Paddy Field - AI-Powered Field Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-  <h1>🌾 Smart Paddy Field</h1>
-  <p>Upload a paddy leaf image to detect disease</p>
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-seedling"></i>
+                <span>Smart Paddy Field</span>
+            </div>
+        </nav>
+    </header>
 
-  <input type="file" id="fileInput" accept="image/*" />
-  <br />
-  <button type="button" onclick="uploadImage()">Predict</button>
-  <p id="result"></p>
+    <main class="main-content">
+        <!-- Hero Section with Full Description -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Smart Paddy Field Analysis</h1>
+                <p class="hero-description">
+                    Advanced AI-powered system to analyze and predict the health condition of your paddy fields. 
+                    Upload an image of your field and get instant insights about crop health, disease detection, 
+                    and agricultural recommendations.
+                </p>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-camera"></i>
+                        <span>Image Analysis</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-brain"></i>
+                        <span>AI Prediction</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Health Monitoring</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <script src="script.js"></script>
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-card">
+                <h2>
+                    <i class="fas fa-camera"></i>
+                    Analyze Your Paddy Field
+                </h2>
+                <p>Upload an image of your paddy field to get instant health analysis and recommendations.</p>
+                
+                <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Drop image here or click to browse</h3>
+                        <p>Supports JPG, PNG, JPEG files</p>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+                    <div id="imagePreview" class="image-preview" style="display: none;">
+                        <img id="previewImg" src="" alt="Preview">
+                        <button class="remove-image" onclick="removeImage()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="button" id="predictBtn" class="predict-btn" onclick="uploadImage()" disabled>
+                    Analyze Field
+                </button>
+
+                <div id="result" class="result-section" style="display: none;">
+                    <div class="result-content">
+                        <div class="result-header">
+                            <i class="fas fa-chart-pie"></i>
+                            <h3>Analysis Results</h3>
+                        </div>
+                        <div id="resultData"></div>
+                    </div>
+                </div>
+
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing your paddy field...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Information Cards Section -->
+        <section class="info-section">
+            <div class="info-cards">
+                <div class="info-card">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Health Conditions</h3>
+                    <ul>
+                        <li><span class="status healthy">Healthy</span> - Optimal field condition</li>
+                        <li><span class="status mild">Mild</span> - Minor issues detected</li>
+                        <li><span class="status moderate">Moderate</span> - Attention required</li>
+                        <li><span class="status severe">Severe</span> - Immediate action needed</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Tips for Better Results</h3>
+                    <ul>
+                        <li>Capture images in good lighting</li>
+                        <li>Include full field view when possible</li>
+                        <li>Avoid blurry or distorted images</li>
+                        <li>Regular monitoring for best outcomes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <!-- <section class="about-section">
+            <div class="about-container">
+                <h2>About Smart Paddy Field</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>
+                            Our Smart Paddy Field system uses cutting-edge machine learning technology to analyze 
+                            paddy field conditions through image processing. By simply uploading a photo of your 
+                            paddy field, our AI model can detect various health conditions and provide detailed 
+                            insights to help farmers make informed decisions.
+                        </p>
+                        <div class="benefits">
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Instant analysis results</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>High accuracy predictions</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Easy to use interface</span>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Expert recommendations</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <i class="fas fa-rice"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main> -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Smart Paddy Field. Empowering farmers with AI technology.</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
